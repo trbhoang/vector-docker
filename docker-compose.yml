@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  vector:
+    build: .
+    volumes:
+      - ./vector.toml:/etc/vector/vector.toml:ro
+      # named volume, this is used to persist vector data between restarts
+      - vector_data:/var/lib/vector
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: on-failure
+
+volumes:
+  # create a persistent volume for vector
+  vector_data:
